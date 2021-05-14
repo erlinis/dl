@@ -56,3 +56,9 @@ profile-*
 profile*
 *clinic*
 *flamegraph*
+
+# Private Keys
+*.pem
+
+# Environment variables
+.env

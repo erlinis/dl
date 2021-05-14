@@ -1,7 +1,23 @@
 'use strict'
+import buildProject from '../src/buildProject.js'
 
-module.exports = async function (fastify, opts) {
+export default async function (fastify, opts) {
+  const { octokitClient } = fastify
+
   fastify.get('/', async function (request, reply) {
-    return { root: true }
+    const repositories = [
+      'kookaburra-lambda',
+      'salesforce-components',
+      'gecko-api',
+      'trips.lionprint',
+      'suite',
+      'suitedashboardapi',
+    ]
+
+    const projects = repositories.map((repoName) => {
+      return buildProject(repoName, octokitClient)
+    })
+
+    return await Promise.all(projects)
   })
 }
