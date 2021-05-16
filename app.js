@@ -18,6 +18,7 @@ export default async function (fastify, opts) {
     schema: S.object()
       .prop('GITHUB_APP_ID', S.string().required())
       .prop('GITHUB_APP_INSTALLATION_ID', S.string().required())
+      .prop('GITHUB_APP_PRIVATE_KEY', S.string().required())
       .valueOf(),
   })
 
