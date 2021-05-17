@@ -106,9 +106,9 @@
                         class='text-primary text-bold'
                       >{{project.name}}
                       </span></a>
-                    {{#ifEquals project.defaultBranch 'master'}}
+                    {{#ifNotEquals project.defaultBranch 'main'}}
                       <span class='text-small text-medium'>({{project.defaultBranch}})</span>
-                    {{/ifEquals}}
+                    {{/ifNotEquals}}
                   </div>
                   <span
                     class='version-{{project.framework.status}}'
@@ -145,9 +145,9 @@
                         class='text-primary text-bold'
                       >{{project.name}}
                       </span></a>
-                    {{#ifEquals project.defaultBranch 'master'}}
+                    {{#ifNotEquals project.defaultBranch 'main'}}
                       <span class='text-small text-medium'>({{project.defaultBranch}})</span>
-                    {{/ifEquals}}
+                    {{/ifNotEquals}}
                   </div>
                   <span
                     class='version-{{project.framework.status}}'
@@ -184,9 +184,9 @@
                         class='text-primary text-bold'
                       >{{project.name}}
                       </span></a>
-                    {{#ifEquals project.defaultBranch 'master'}}{{/ifEquals}}
-                    <span>{{project.defaultBranch}}</span>
-
+                    {{#ifNotEquals project.defaultBranch 'main'}}
+                      <span class='text-small text-medium'>({{project.defaultBranch}})</span>
+                    {{/ifNotEquals}}
                   </div>
 
                   <span></span>
