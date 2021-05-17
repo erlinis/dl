@@ -140,10 +140,15 @@
             <div class='projects'>
               {{#each sinatraProjects as |project|}}
                 <div class='projects__row'>
-                  <a href='{{project.url}}' target='_blank'><span
-                      class='text-primary text-bold'
-                    >{{project.name}}
-                    </span></a>
+                  <div>
+                    <a href='{{project.url}}' target='_blank'><span
+                        class='text-primary text-bold'
+                      >{{project.name}}
+                      </span></a>
+                    {{#ifEquals project.defaultBranch 'master'}}
+                      <span class='text-small text-medium'>({{project.defaultBranch}})</span>
+                    {{/ifEquals}}
+                  </div>
                   <span
                     class='version-{{project.framework.status}}'
                   >{{project.framework.version}}</span>
