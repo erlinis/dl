@@ -13,9 +13,22 @@
   </head>
   <body>
     <div class='container-wrapper'>
-      <h1>Oreo Projects</h1>
 
-      <div class='info'>
+      <div class='app-container'>
+
+        <div class='app-container__title'>
+          <header class='banner'>
+            <h1 class=''>Oreo Projects</h1>
+            <img
+              class='logo'
+              src='../public/images/oreo-dl-.png'
+              alt='Oreo Logo'
+              width='50'
+              height='50'
+            />
+          </header>
+        </div>
+
         <div class='card'>
           <div class='card-containers'>
             <div class='card-header'>
@@ -81,7 +94,9 @@
             <div class='projects__titles'>
               <span class='text-bold'>Project</span>
               <span class='text-bold'>Rails</span>
-              <span class='text-bold'>Ruby 💎</span>
+              <span class='text-bold'>Ruby
+                <img src='../public/images/ruby-logo.png' width='16' />
+              </span>
             </div>
             <div class='projects'>
               {{#each railsProjects as |project|}}
@@ -118,7 +133,9 @@
             <div class='projects__titles'>
               <span class='text-bold'>Project</span>
               <span class='text-bold'>Sinatra</span>
-              <span class='text-bold'>Ruby 💎</span>
+              <span class='text-bold'>Ruby
+                <img src='../public/images/ruby-logo.png' width='16' />
+              </span>
             </div>
             <div class='projects'>
               {{#each sinatraProjects as |project|}}
@@ -150,7 +167,9 @@
             <div class='projects__titles'>
               <span class='text-bold'>Project</span>
               <span class='text-bold'></span>
-              <span class='text-bold'>Ruby 💎</span>
+              <span class='text-bold'>Ruby
+                <img src='../public/images/ruby-logo.png' width='16' />
+              </span>
             </div>
             <div class='projects'>
               {{#each rubyProjects as |project|}}
