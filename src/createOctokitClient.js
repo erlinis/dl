@@ -3,9 +3,10 @@ import { Octokit } from 'octokit'
 
 /**
  *
- * @param {string} appId
- * @param {string} installationId
- * @param {string} privateKey
+ * @param {object} config
+ * @param {string} config.appId
+ * @param {string} config.installationId
+ * @param {string} config.privateKey
  * @returns {Octokit}
  */
 function createOctokitClient({ appId, installationId, privateKey }) {

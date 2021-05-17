@@ -1,0 +1,208 @@
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Dependency List</title>
+    <link rel='stylesheet' href='../public/style/index.css' />
+    <link rel='preconnect' href='https://fonts.gstatic.com' />
+    <link
+      href='https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap'
+      rel='stylesheet'
+    />
+  </head>
+  <body>
+    <div class='container-wrapper'>
+      <h1>Oreo Projects</h1>
+
+      <div class='info'>
+        <div class='card'>
+          <div class='card-containers'>
+            <div class='card-header'>
+              <h3>Stable Versions</h3>
+            </div>
+            <div class='card-body'>
+              <table>
+                <tbody>
+                  {{#each officialVersions}}
+                    <tr>
+                      <td class='pr-2 py'>
+                        <span class='text-secondary'>{{@key}}: </span>
+                      </td>
+                      <td>
+
+                        <span class='text-primary'>{{this.latest}}</span>
+                        {{#each this.stables}}
+                          ,
+                          <span class='text-medium'>{{this}}</span>
+                        {{/each}}
+                      </td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class='card'>
+          <div class='card-containers'>
+            <div class='card-header'>
+              <h3>Conventions</h3>
+            </div>
+            <div class='card-body'>
+              <div class='conventions'>
+                <div class='convention-row'>
+                  <span class='dot dot-primary'></span>
+                  <span class='text-secondary'>Latest</span>
+                </div>
+
+                <div class='convention-row'>
+                  <span class='dot dot-stable'></span>
+                  <span class='text-secondary'>Older Stable</span>
+                </div>
+
+                <div class='convention-row'>
+                  <span class='dot dot-outdated'></span>
+                  <span class='text-secondary'>Outdated</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class='card'>
+        <div class='card-containers'>
+          <div class='card-header'>
+            <h3>Rails Projects</h3>
+          </div>
+          <div class='card-body'>
+            <div class='projects__titles'>
+              <span class='text-bold'>Project</span>
+              <span class='text-bold'>Rails</span>
+              <span class='text-bold'>Ruby 💎</span>
+            </div>
+            <div class='projects'>
+              {{#each railsProjects as |project|}}
+                <div class='projects__row'>
+                  <div>
+                    <a href='{{project.url}}' target='_blank'><span
+                        class='text-primary text-bold'
+                      >{{project.name}}
+                      </span></a>
+                    {{#ifEquals project.defaultBranch 'master'}}
+                      <span class='text-small text-medium'>({{project.defaultBranch}})</span>
+                    {{/ifEquals}}
+                  </div>
+                  <span
+                    class='version-{{project.framework.status}}'
+                  >{{project.framework.version}}</span>
+                  <span
+                    class='version-{{project.platform.status}}'
+                  >{{project.platform.version}}</span>
+                </div>
+              {{/each}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class='card'>
+        <div class='card-containers'>
+          <div class='card-header'>
+            <h3>Sinatra Projects</h3>
+          </div>
+          <div class='card-body'>
+            <div class='projects__titles'>
+              <span class='text-bold'>Project</span>
+              <span class='text-bold'>Sinatra</span>
+              <span class='text-bold'>Ruby 💎</span>
+            </div>
+            <div class='projects'>
+              {{#each sinatraProjects as |project|}}
+                <div class='projects__row'>
+                  <a href='{{project.url}}' target='_blank'><span
+                      class='text-primary text-bold'
+                    >{{project.name}}
+                    </span></a>
+                  <span
+                    class='version-{{project.framework.status}}'
+                  >{{project.framework.version}}</span>
+                  <span
+                    class='version-{{project.platform.status}}'
+                  >{{project.platform.version}}</span>
+                </div>
+              {{/each}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class='card'>
+        <div class='card-containers'>
+          <div class='card-header'>
+            <h3>Ruby Projects</h3>
+          </div>
+          <div class='card-body'>
+            <div class='projects__titles'>
+              <span class='text-bold'>Project</span>
+              <span class='text-bold'></span>
+              <span class='text-bold'>Ruby 💎</span>
+            </div>
+            <div class='projects'>
+              {{#each rubyProjects as |project|}}
+                <div class='projects__row'>
+                  <div>
+                    <a href='{{project.url}}' target='_blank'><span
+                        class='text-primary text-bold'
+                      >{{project.name}}
+                      </span></a>
+                    {{#ifEquals project.defaultBranch 'master'}}{{/ifEquals}}
+                    <span>{{project.defaultBranch}}</span>
+
+                  </div>
+
+                  <span></span>
+                  <span
+                    class='version-{{project.platform.status}}'
+                  >{{project.platform.version}}</span>
+                </div>
+              {{/each}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Other Projects-->
+      <div class='card'>
+        <div class='card-containers'>
+          <div class='card-header'>
+            <h3>Other Projects</h3>
+          </div>
+          <div class='card-body'>
+            <div class='projects__titles other-projects'>
+              <span class='text-bold'>Project</span>
+              <span class='text-bold'>Description</span>
+            </div>
+            <div class='projects'>
+              {{#each othersProjects as |project|}}
+                <div class='projects__row other-projects'>
+                  <a href='{{project.url}}' target='_blank'><span
+                      class='text-primary text-bold'
+                    >{{project.name}}</span></a>
+
+                  <span>{{project.description}}</span>
+                </div>
+              {{/each}}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

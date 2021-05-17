@@ -1,0 +1,147 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #50c871;
+  --secondary-color: #3f4144;
+  --third-color: #d83d42;
+  --medium-color: #9999ac;
+  --light-color: ##c8cccf;
+  --lightest-color: #ffffff;
+  --app-width: 900px;
+  --general-shadow: rgb(63 65 68 / 30%) 0px 1px 5px 0px;
+}
+
+html,
+#root {
+  background-color: var(--lightest-color);
+}
+
+body {
+  background-color: var(--lightest-color);
+  color: var(--secondary-color);
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Utilities */
+.container-wrapper {
+  max-width: var(--app-width);
+  padding: 0 1rem;
+  margin: auto;
+}
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.text-secondary {
+  color: var(--secondary-color);
+}
+
+.text-medium {
+  color: var(--medium-color);
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+.text-small {
+  font-size: 0.7rem;
+}
+
+.py {
+  padding-right: 1rem;
+}
+
+.pr-2 {
+  padding-right: 2rem;
+}
+
+.card {
+  background: var(--lightest-color);
+  width: 100%;
+  margin: 0 0 2rem 0rem;
+  border-radius: 15px;
+  /*box-shadow: var(--general-shadow);*/
+  box-shadow: 0px 3px 5px 3px #f0f1f5;
+}
+
+.card-header {
+  padding: 1rem 1rem 0.5rem 1rem;
+  border-bottom: 1px solid rgba(242, 242, 242, 1);
+  font-weight: 700;
+}
+
+.card-body {
+  padding: 0.5rem 1rem 0.8rem 1rem;
+}
+
+.dot {
+  margin-right: 10px;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+}
+
+.dot-primary {
+  background-color: var(--primary-color);
+}
+
+.dot-stable {
+  background-color: var(--medium-color);
+}
+
+.dot-outdated {
+  background-color: var(--third-color);
+}
+
+.version-latest {
+  color: var(--primary-color);
+}
+
+.version-stable {
+  color: var(--medium-color);
+}
+
+.version-outdated {
+  color: var(--third-color);
+}
+
+.convention-row {
+  display: flex;
+  align-items: center;
+  padding: 0px 0 5px 0px;
+}
+
+.info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 2rem;
+}
+
+.projects__titles,
+.projects__row {
+  display: grid;
+  grid-template-columns: 5fr 2fr 1fr;
+  padding: 0.5rem 0.5rem;
+}
+
+.projects__row {
+  background: #fbfbfb;
+  border-radius: 5px;
+  border: 1px solid #f2f2f2;
+  margin-bottom: 5px;
+}
+
+.other-projects {
+  grid-template-columns: 2fr 3fr;
+}

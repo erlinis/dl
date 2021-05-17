@@ -6,25 +6,24 @@
 import { metadataStrategies } from './metada/metadataStrategyManager.js'
 
 /**
- * @param {string} projectName
+ * @param {string} repositoryName
+ * @param {string} repositoryOwner
  * @param {import('./types.js').OfficialVersions} officialVersions
  * @param {import('octokit').Octokit} octokitClient
  * @returns project
  */
-async function buildProject(projectName, officialVersions, octokitClient) {
-  const owner = 'tourlane'
-
+async function buildProject(repositoryName, repositoryOwner, officialVersions, octokitClient) {
   return await octokitClient
     .request('GET /repos/{owner}/{repo}', {
-      owner: owner,
-      repo: projectName,
+      owner: repositoryOwner,
+      repo: repositoryName,
     })
     .then(async ({ data: repository }) => {
       return {
         name: repository.name,
         url: repository.html_url,
         description: repository.description,
-        default_branch: repository.default_branch,
+        defaultBranch: repository.default_branch,
         language: repository.language,
         ...(await getMetadata(repository)),
       }
@@ -32,10 +31,10 @@ async function buildProject(projectName, officialVersions, octokitClient) {
     .catch((err) => {
       console.log('Error retrieve project: ', err)
       return {
-        name: projectName,
+        name: repositoryName,
         description: `Error retrieving the repo information make sure 'oreo-dl' is installed in the repository`,
         url: '',
-        default_branch: '',
+        defaultBranch: '',
         language: '',
         framework: {},
         platform: {},
@@ -50,15 +49,11 @@ async function buildProject(projectName, officialVersions, octokitClient) {
   async function getMetadata(repository) {
     let metadata = { framework: {}, platform: {} }
 
-    const metadataStrategyClass =
-      metadataStrategies[repository.language.toLowerCase()]
+    const metadataStrategyClass = metadataStrategies[repository.language.toLowerCase()]
 
     if (metadataStrategyClass == undefined) return metadata
 
-    return new metadataStrategyClass(
-      officialVersions,
-      octokitClient
-    ).getMetadata(repository)
+    return new metadataStrategyClass(officialVersions, octokitClient).getMetadata(repository)
   }
 }
 

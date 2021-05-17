@@ -1,8 +1,11 @@
 'use strict'
 
 import AutoLoad from 'fastify-autoload'
+import FastifyStatic from 'fastify-static'
 import Env from 'fastify-env'
 import S from 'fluent-json-schema'
+import PointOfView from 'point-of-view'
+import Handlebars from 'handlebars'
 
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
@@ -18,7 +21,9 @@ export default async function (fastify, opts) {
     schema: S.object()
       .prop('GITHUB_APP_ID', S.string().required())
       .prop('GITHUB_APP_INSTALLATION_ID', S.string().required())
+      .prop('GITHUB_APP_INSTALLATION_OWNER', S.string().required())
       .prop('GITHUB_APP_PRIVATE_KEY', S.string().required())
+      .prop('REPOSITORIES', S.string().required())
       .valueOf(),
   })
 
@@ -30,10 +35,28 @@ export default async function (fastify, opts) {
     options: Object.assign({}, opts),
   })
 
-  // This loads all plugins defined in routes
+  // This loads all plugins defined in sroutes
   // define your routes in one of these
   fastify.register(AutoLoad, {
     dir: join(__dirname, 'routes'),
     options: Object.assign({}, opts),
+  })
+
+  // Set Static files path
+  fastify.register(FastifyStatic, {
+    root: join(__dirname, '/public'),
+    prefix: '/public/', // optional: default '/'
+  })
+
+  // Define views
+  fastify.register(PointOfView, {
+    engine: {
+      handlebars: Handlebars,
+    },
+    includeViewExtension: true,
+  })
+
+  Handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
+    return arg1 == arg2 ? options.fn(this) : options.inverse(this)
   })
 }

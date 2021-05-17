@@ -11,7 +11,6 @@ import gemfileInterpreter from '../gemfileInterpreter.js'
 
 /**@type {Frameworks} */
 const RUBY_FRAMEWORKS = ['rails', 'sinatra']
-const owner = 'tourlane'
 
 /**
  * @implements {MetadataStrategy}
@@ -34,10 +33,10 @@ export class RubyMetadata {
   async getMetadata(repository) {
     let metadata = { framework: {}, platform: {} }
 
-    const gemfileDotLock = await this.getGemfileDotLock(repository.name)
+    const gemfileDotLock = await this.getGemfileDotLock(repository)
     metadata = {
       framework: this.getFrameworkMetadata(gemfileDotLock),
-      platform: await this.getPlatformMetadata(repository.name, gemfileDotLock),
+      platform: await this.getPlatformMetadata(repository, gemfileDotLock),
     }
 
     return metadata
@@ -71,15 +70,15 @@ export class RubyMetadata {
 
   /**
    * @private
-   * @param {string} repositoryName
+   * @param {Repository} repository
    * @param {*} gemfileDotLock
    * @returns
    */
-  async getPlatformMetadata(repositoryName, gemfileDotLock) {
+  async getPlatformMetadata(repository, gemfileDotLock) {
     const rubyVersion =
       gemfileDotLock.rubyVersion != undefined
         ? gemfileDotLock.rubyVersion.split('p')[0]
-        : await this.getRubyFromRubyVersionFile(repositoryName)
+        : await this.getRubyFromRubyVersionFile(repository)
 
     return {
       name: 'ruby',
@@ -90,14 +89,14 @@ export class RubyMetadata {
 
   /**
    * @private
-   * @param {string} repositoryName
+   * @param {Repository} repository
    * @returns
    */
-  getGemfileDotLock(repositoryName) {
+  getGemfileDotLock(repository) {
     return this.octokitClient
       .request('GET /repos/{owner}/{repo}/contents/{path}', {
-        owner: owner,
-        repo: repositoryName,
+        owner: repository.owner.login,
+        repo: repository.name,
         path: 'Gemfile.lock',
       })
       .then(({ data: gemfileDotLock }) => {
@@ -119,14 +118,14 @@ export class RubyMetadata {
 
   /**
    * @private
-   * @param {string} repositoryName
+   * @param {Repository} repository
    * @returns
    */
-  getRubyFromRubyVersionFile(repositoryName) {
+  getRubyFromRubyVersionFile(repository) {
     return this.octokitClient
       .request('GET /repos/{owner}/{repo}/contents/{path}', {
-        owner: owner,
-        repo: repositoryName,
+        owner: repository.owner.login,
+        repo: repository.name,
         path: '.ruby-version',
       })
       .then(({ data: file }) => {

@@ -2,8 +2,7 @@ import { components } from '@octokit/openapi-types'
 import { Endpoints } from '@octokit/types'
 import { Octokit } from 'octokit'
 
-export type Repository =
-  Endpoints['GET /repos/{owner}/{repo}']['response']['data']
+export type Repository = Endpoints['GET /repos/{owner}/{repo}']['response']['data']
 export type Frameworks = 'rails' | 'sinatra'
 export type Platforms = 'ruby'
 
