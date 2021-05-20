@@ -19,8 +19,6 @@ export default async function (fastify, opts) {
 
     const projects = await Promise.all(projectsPromises)
 
-    console.log(projects)
-
     function filterProjectByFramework(projects, framework) {
       return projects.filter((project) => project.framework?.name == framework)
     }
