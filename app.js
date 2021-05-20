@@ -54,6 +54,13 @@ export default async function (fastify, opts) {
       handlebars: Handlebars,
     },
     includeViewExtension: true,
+    options: {
+      partials: {
+        projects: '/views/partials/projects.hbs',
+        projectsInfo: '/views/partials/projectsInfo.hbs',
+        projectInfoTitles: '/views/partials/projectInfoTitles.hbs',
+      },
+    },
   })
 
   Handlebars.registerHelper('ifNotEquals', function (arg1, arg2, options) {

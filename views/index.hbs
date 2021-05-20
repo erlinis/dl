@@ -40,14 +40,13 @@
                   {{#each officialVersions}}
                     <tr>
                       <td class='pr-2 py'>
-                        <span class='text-secondary'>{{@key}}: </span>
+                        <span class='fc-secondary'>{{@key}}: </span>
                       </td>
                       <td>
-
-                        <span class='text-primary'>{{this.latest}}</span>
+                        <span class='fc-primary'>{{this.latest}}</span>
                         {{#each this.stables}}
                           ,
-                          <span class='text-medium'>{{this}}</span>
+                          <span class='fc-medium'>{{this}}</span>
                         {{/each}}
                       </td>
                     </tr>
@@ -67,17 +66,17 @@
               <div class='conventions'>
                 <div class='convention-row'>
                   <span class='dot dot-primary'></span>
-                  <span class='text-secondary'>Latest</span>
+                  <span class='fc-secondary'>Latest</span>
                 </div>
 
                 <div class='convention-row'>
                   <span class='dot dot-stable'></span>
-                  <span class='text-secondary'>Older Stable</span>
+                  <span class='fc-secondary'>Older Stable</span>
                 </div>
 
                 <div class='convention-row'>
                   <span class='dot dot-outdated'></span>
-                  <span class='text-secondary'>Outdated</span>
+                  <span class='fc-secondary'>Outdated</span>
                 </div>
               </div>
             </div>
@@ -85,121 +84,11 @@
         </div>
       </div>
 
-      <div class='card'>
-        <div class='card-containers'>
-          <div class='card-header'>
-            <h3>Rails Projects</h3>
-          </div>
-          <div class='card-body'>
-            <div class='projects__titles'>
-              <span class='text-bold'>Project</span>
-              <span class='text-bold'>Rails</span>
-              <span class='text-bold'>Ruby
-                <img src='../public/images/ruby-logo.png' width='16' />
-              </span>
-            </div>
-            <div class='projects'>
-              {{#each railsProjects as |project|}}
-                <div class='projects__row'>
-                  <div>
-                    <a href='{{project.url}}' target='_blank'><span
-                        class='text-primary text-bold'
-                      >{{project.name}}
-                      </span></a>
-                    {{#ifNotEquals project.defaultBranch 'main'}}
-                      <span class='text-small text-medium'>({{project.defaultBranch}})</span>
-                    {{/ifNotEquals}}
-                  </div>
-                  <span
-                    class='version-{{project.framework.status}}'
-                  >{{project.framework.version}}</span>
-                  <span
-                    class='version-{{project.platform.status}}'
-                  >{{project.platform.version}}</span>
-                </div>
-              {{/each}}
-            </div>
+      {{> projects projects=railsProjects framework='Rails' platform='Ruby'}}
 
-          </div>
-        </div>
-      </div>
+      {{> projects projects=sinatraProjects framework='Sinatra' platform='Ruby'}}
 
-      <div class='card'>
-        <div class='card-containers'>
-          <div class='card-header'>
-            <h3>Sinatra Projects</h3>
-          </div>
-          <div class='card-body'>
-            <div class='projects__titles'>
-              <span class='text-bold'>Project</span>
-              <span class='text-bold'>Sinatra</span>
-              <span class='text-bold'>Ruby
-                <img src='../public/images/ruby-logo.png' width='16' />
-              </span>
-            </div>
-            <div class='projects'>
-              {{#each sinatraProjects as |project|}}
-                <div class='projects__row'>
-                  <div>
-                    <a href='{{project.url}}' target='_blank'><span
-                        class='text-primary text-bold'
-                      >{{project.name}}
-                      </span></a>
-                    {{#ifNotEquals project.defaultBranch 'main'}}
-                      <span class='text-small text-medium'>({{project.defaultBranch}})</span>
-                    {{/ifNotEquals}}
-                  </div>
-                  <span
-                    class='version-{{project.framework.status}}'
-                  >{{project.framework.version}}</span>
-                  <span
-                    class='version-{{project.platform.status}}'
-                  >{{project.platform.version}}</span>
-                </div>
-              {{/each}}
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class='card'>
-        <div class='card-containers'>
-          <div class='card-header'>
-            <h3>Ruby Projects</h3>
-          </div>
-          <div class='card-body'>
-            <div class='projects__titles'>
-              <span class='text-bold'>Project</span>
-              <span class='text-bold'></span>
-              <span class='text-bold'>Ruby
-                <img src='../public/images/ruby-logo.png' width='16' />
-              </span>
-            </div>
-            <div class='projects'>
-              {{#each rubyProjects as |project|}}
-                <div class='projects__row'>
-                  <div>
-                    <a href='{{project.url}}' target='_blank'><span
-                        class='text-primary text-bold'
-                      >{{project.name}}
-                      </span></a>
-                    {{#ifNotEquals project.defaultBranch 'main'}}
-                      <span class='text-small text-medium'>({{project.defaultBranch}})</span>
-                    {{/ifNotEquals}}
-                  </div>
-
-                  <span></span>
-                  <span
-                    class='version-{{project.platform.status}}'
-                  >{{project.platform.version}}</span>
-                </div>
-              {{/each}}
-            </div>
-
-          </div>
-        </div>
-      </div>
+      {{> projects projects=rubyProjects framework='' platform='Ruby'}}
 
       <!-- Other Projects-->
       <div class='card'>
@@ -209,21 +98,31 @@
           </div>
           <div class='card-body'>
             <div class='projects__titles other-projects'>
-              <span class='text-bold'>Project</span>
-              <span class='text-bold'>Description</span>
+              <span class='fw-bold'>Project</span>
+              <span class='fw-bold'>Description</span>
             </div>
             <div class='projects'>
               {{#each othersProjects as |project|}}
                 <div class='projects__row other-projects'>
-                  <a href='{{project.url}}' target='_blank'><span
-                      class='text-primary text-bold'
-                    >{{project.name}}</span></a>
+                  <div>
+                    <a href='{{project.url}}' target='_blank'><span
+                      class='fc-primary fw-bold'>{{project.name}}</span></a>
 
-                  <span>{{project.description}}</span>
+                    {{#if project.language}}
+                      <span class='fs-xs fc-third'> &lsaquo; {{project.language}} &rsaquo;</span>
+                    {{/if}}
+                  </div>
+
+                  <div>
+                    {{#ifNotEquals project.url 'error'}}
+                      <span class="fs-md">{{project.description}}</span>
+                    {{else}}
+                      <span class="fs-md fc-danger">{{project.description}}</span>
+                    {{/ifNotEquals}}
+                  </div>
                 </div>
               {{/each}}
             </div>
-
           </div>
         </div>
       </div>

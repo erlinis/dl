@@ -33,7 +33,7 @@ async function buildProject(repositoryName, repositoryOwner, officialVersions, o
       return {
         name: repositoryName,
         description: `Error retrieving the repo information make sure 'oreo-dl' is installed in the repository`,
-        url: '',
+        url: 'error',
         defaultBranch: '',
         language: '',
         framework: {},

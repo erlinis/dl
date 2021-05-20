@@ -7,10 +7,11 @@
 :root {
   --primary-color: #50c871;
   --secondary-color: #3f4144;
-  --third-color: #d83d42;
+  --third-color: #bd5a0e;
   --medium-color: #9999ac;
   --light-color: ##c8cccf;
   --lightest-color: #ffffff;
+  --danger-color: #d83d42;
   --app-width: 900px;
 }
 
@@ -37,24 +38,36 @@ a {
   margin: auto;
 }
 
-.text-primary {
+.fc-primary {
   color: var(--primary-color);
 }
 
-.text-secondary {
+.fc-secondary {
   color: var(--secondary-color);
 }
 
-.text-medium {
+.fc-third {
+  color: var(--third-color);
+}
+
+.fc-danger {
+  color: var(--danger-color);
+}
+
+.fc-medium {
   color: var(--medium-color);
 }
 
-.text-bold {
+.fw-bold {
   font-weight: 700;
 }
 
-.text-small {
+.fs-xs {
   font-size: 0.7rem;
+}
+
+.fs-md {
+  font-size: 0.9rem;
 }
 
 .py {
@@ -83,6 +96,8 @@ a {
   padding: 0.5rem 1rem 0.8rem 1rem;
 }
 
+/* Styles */
+
 .dot {
   margin-right: 10px;
   border-radius: 50%;
@@ -99,7 +114,7 @@ a {
 }
 
 .dot-outdated {
-  background-color: var(--third-color);
+  background-color: var(--danger-color);
 }
 
 .version-latest {
@@ -111,7 +126,7 @@ a {
 }
 
 .version-outdated {
-  color: var(--third-color);
+  color: var(--danger-color);
 }
 
 .convention-row {

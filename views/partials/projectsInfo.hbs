@@ -1,0 +1,24 @@
+<div class='projects'>
+  {{#each projects as |project|}}
+    <div class='projects__row'>
+
+      <div>
+        <a href='{{project.url}}' target='_blank'><span class='fc-primary fw-bold'>{{project.name}}
+          </span></a>
+        {{#ifNotEquals project.defaultBranch 'main'}}
+          <span class='fs-xs fc-medium'>({{project.defaultBranch}})</span>
+        {{/ifNotEquals}}
+      </div>
+
+      {{#if project.framework}}
+        <span class='version-{{project.framework.status}}'>
+          {{project.framework.version}}
+        </span>
+      {{else}}
+        <span></span>
+      {{/if}}
+
+      <span class='version-{{project.platform.status}}'>{{project.platform.version}}</span>
+    </div>
+  {{/each}}
+</div>
