@@ -1,6 +1,11 @@
 'use strict'
 import buildProject from '../src/buildProject.js'
 import { officialVersions } from '../src/officialVersions.js'
+import groupBy from 'lodash-es/groupBy.js'
+
+/**
+ * @typedef {import('../src/types.js').Project} Project
+ */
 
 export default async function (fastify, opts) {
   const { octokitClient, config } = fastify
@@ -19,27 +24,20 @@ export default async function (fastify, opts) {
 
     const projects = await Promise.all(projectsPromises)
 
-    function filterProjectByFramework(projects, framework) {
-      return projects.filter((project) => project.framework?.name == framework)
-    }
-
-    function filterProjectByPlatform(projects, platform) {
-      return projects.filter(
-        (project) => project.platform?.name == platform && isObjectEmpty(project.framework)
-      )
-    }
-
-    function filterWithoutFrameworkAndPlatform(projects) {
-      return projects.filter(
-        (project) => isObjectEmpty(project.platform) && isObjectEmpty(project.framework)
-      )
-    }
+    const groupedProjects = groupProjects(projects)
+    const projectsGroupedByFramework = groupBy(
+      groupedProjects.framework,
+      (project) => project.framework?.name
+    )
+    const projectsGroupedByPlatform = groupBy(
+      groupedProjects.platform,
+      (project) => project.platform?.name
+    )
 
     return reply.view('/views/index', {
-      railsProjects: filterProjectByFramework(projects, 'rails'),
-      sinatraProjects: filterProjectByFramework(projects, 'sinatra'),
-      rubyProjects: filterProjectByPlatform(projects, 'ruby'),
-      othersProjects: filterWithoutFrameworkAndPlatform(projects),
+      projectsGroupedByFramework: projectsGroupedByFramework,
+      projectsGroupedByPlatform: projectsGroupedByPlatform,
+      projectsWithoutMeta: groupedProjects.others,
       officialVersions: officialVersions,
     })
   })
@@ -47,18 +45,17 @@ export default async function (fastify, opts) {
 
 /**
  *
- * @param {*} obj
- * @returns {boolean}
+ * @param {Array<Project>} projects
+ * @returns { {framework: Project[], platform: Project[], others: Project[] } }
  */
-function isObjectEmpty(obj) {
-  if (!isPlainObject(obj)) return true
-  return Object.keys(obj).length === 0
-}
-/**
- *
- * @param {*} x
- * @returns {boolean}
- */
-function isPlainObject(x) {
-  return Object.prototype.toString.call(x) === '[object Object]'
+function groupProjects(projects) {
+  return groupBy(projects, (project) => {
+    if (project.framework?.name && project.platform?.name) {
+      return 'framework'
+    } else if (project.framework?.name == undefined && project.platform?.name) {
+      return 'platform'
+    } else {
+      return 'others'
+    }
+  })
 }

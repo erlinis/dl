@@ -84,11 +84,15 @@
         </div>
       </div>
 
-      {{> projects projects=railsProjects framework='Rails' platform='Ruby'}}
+      <!-- Projects with Framework -->
+      {{#each projectsGroupedByFramework as |records framework|}}
+        {{> projects projects=records framework=framework platform=records.0.platform.name}}
+      {{/each}}
 
-      {{> projects projects=sinatraProjects framework='Sinatra' platform='Ruby'}}
-
-      {{> projects projects=rubyProjects framework='' platform='Ruby'}}
+     <!-- Projects without Framework -->
+      {{#each projectsGroupedByPlatform as |records platform|}}
+        {{> projects projects=records framework='' platform=platform}}
+      {{/each}}
 
       <!-- Other Projects-->
       <div class='card'>
@@ -102,7 +106,7 @@
               <span class='fw-bold'>Description</span>
             </div>
             <div class='projects'>
-              {{#each othersProjects as |project|}}
+              {{#each projectsWithoutMeta as |project|}}
                 <div class='projects__row other-projects'>
                   <div>
                     <a href='{{project.url}}' target='_blank'><span

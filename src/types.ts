@@ -9,6 +9,14 @@ export type Platforms = 'ruby'
 export type Technologies = Frameworks | Platforms
 export type ContentFile = components['schemas']['content-file']
 
+export interface Project extends Metadata {
+  name: string
+  description: string
+  url: string
+  defaultBranch: string
+  language: string
+}
+
 export interface OfficialVersions {
   rails: VersionsDetails
   sinatra: VersionsDetails

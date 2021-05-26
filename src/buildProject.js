@@ -1,6 +1,7 @@
 /**
  * @typedef {import('./types.js').Repository} Repository
  * @typedef {import('./types.js').Technologies} Technologies
+ * @typedef {import('./types.js').Project} Project
  */
 
 import { metadataStrategies } from './metada/metadataStrategyManager.js'
@@ -10,7 +11,7 @@ import { metadataStrategies } from './metada/metadataStrategyManager.js'
  * @param {string} repositoryOwner
  * @param {import('./types.js').OfficialVersions} officialVersions
  * @param {import('octokit').Octokit} octokitClient
- * @returns project
+ * @returns {Promise<Project>}
  */
 async function buildProject(repositoryName, repositoryOwner, officialVersions, octokitClient) {
   return await octokitClient

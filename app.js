@@ -66,4 +66,8 @@ export default async function (fastify, opts) {
   Handlebars.registerHelper('ifNotEquals', function (arg1, arg2, options) {
     return arg1 != arg2 ? options.fn(this) : options.inverse(this)
   })
+
+  Handlebars.registerHelper('capitalize', function (word, options) {
+    return word.charAt(0).toUpperCase() + word.slice(1)
+  })
 }
