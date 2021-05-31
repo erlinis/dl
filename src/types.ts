@@ -23,7 +23,7 @@ export interface OfficialVersions {
   ruby: VersionsDetails
 }
 
-interface VersionsDetails {
+export interface VersionsDetails {
   latest: string
   stables: string[]
 }

@@ -1,5 +1,5 @@
 'use strict'
-import buildProject from '../src/buildProject.js'
+import buildProjects from '../src/buildProjects.js'
 import { officialVersions } from '../src/officialVersions.js'
 import groupBy from 'lodash-es/groupBy.js'
 
@@ -13,16 +13,16 @@ export default async function (fastify, opts) {
   fastify.get('/', async function (request, reply) {
     const repositories = config.REPOSITORIES.split(',')
 
-    const projectsPromises = repositories.map((repositoyName) => {
-      return buildProject(
-        repositoyName,
+    const projectsPromises = repositories.map((repositoryName) => {
+      return buildProjects(
+        repositoryName,
         config.GITHUB_APP_INSTALLATION_OWNER,
         officialVersions,
         octokitClient
       )
     })
 
-    const projects = await Promise.all(projectsPromises)
+    const projects = (await Promise.all(projectsPromises)).flat()
 
     const groupedProjects = groupProjects(projects)
     const projectsGroupedByFramework = groupBy(

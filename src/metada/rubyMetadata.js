@@ -100,10 +100,7 @@ export class RubyMetadata {
         path: 'Gemfile.lock',
       })
       .then(({ data: gemfileDotLock }) => {
-        const gemfileDotLockContent = Buffer.from(
-          gemfileDotLock.content,
-          gemfileDotLock.encoding
-        )
+        const gemfileDotLockContent = Buffer.from(gemfileDotLock.content, gemfileDotLock.encoding)
           .toString('utf-8')
           .replace(/\n/, '')
           .replace(/ruby-/, '')
