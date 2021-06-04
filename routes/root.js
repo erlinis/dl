@@ -35,6 +35,7 @@ export default async function (fastify, opts) {
     )
 
     return reply.view('/views/index', {
+      repositoriesOwner: config.REPOSITORIES_OWNER.toLowerCase(),
       projectsGroupedByFramework: projectsGroupedByFramework,
       projectsGroupedByPlatform: projectsGroupedByPlatform,
       projectsWithoutMeta: groupedProjects.others,

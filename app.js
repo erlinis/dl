@@ -24,6 +24,7 @@ export default async function (fastify, opts) {
       .prop('GITHUB_APP_INSTALLATION_OWNER', S.string().required())
       .prop('GITHUB_APP_PRIVATE_KEY', S.string().required())
       .prop('REPOSITORIES', S.string().required())
+      .prop('REPOSITORIES_OWNER', S.string().required())
       .valueOf(),
   })
 

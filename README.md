@@ -39,6 +39,7 @@ Application to extract current version of specific dependencies in a projecs hos
   **Important:**
 
   - `REPOSITORIES` list of repositories names comma separated and without spaces.
+  - `REPOSITORIES_OWNER` name of the person or team responsible for the repositories
   - `GITHUB_APP_INSTALLATION_OWNER` your github user u organization name, depending where the app was installed.
   - `GITHUB_APP_PRIVATE_KEY` should be a string encoded in _base64_.
   - `GITHUB_APP_INSTALLATION_ID` can be found in your Github App in the `Install App` menu. Click the installation previouly done and take the "id" from the url: <https://github.com/apps/>**YOUR-APP**/installations/**INSTALLATION-ID**
