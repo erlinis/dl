@@ -93,8 +93,7 @@ export class RubyMetadata {
    * @returns
    */
   getGemfileDotLock(repository) {
-    return this.octokitClient
-      .request('GET /repos/{owner}/{repo}/contents/{path}', {
+    return this.octokitClient.rest.repos.getContent({
         owner: repository.owner.login,
         repo: repository.name,
         path: 'Gemfile.lock',
