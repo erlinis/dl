@@ -14,4 +14,8 @@ export const officialVersions = {
     latest: '2.1.0',
     stables: [],
   },
+  go: {
+    latest: '1.16.5',
+    stables: ['1.15.13'],
+  },
 }

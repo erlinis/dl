@@ -14,12 +14,7 @@ export default async function (fastify, opts) {
     const repositories = config.REPOSITORIES.split(',')
 
     const projectsPromises = repositories.map((repositoryName) => {
-      return buildProjects(
-        repositoryName,
-        config.GITHUB_APP_INSTALLATION_OWNER,
-        officialVersions,
-        octokitClient
-      )
+      return buildProjects(repositoryName, config.GITHUB_APP_INSTALLATION_OWNER, octokitClient)
     })
 
     const projects = (await Promise.all(projectsPromises)).flat()

@@ -4,7 +4,7 @@ import { Octokit } from 'octokit'
 
 export type Repository = Endpoints['GET /repos/{owner}/{repo}']['response']['data']
 export type Frameworks = 'rails' | 'sinatra'
-export type Platforms = 'ruby'
+export type Platforms = 'ruby' | 'go'
 
 export type Technologies = Frameworks | Platforms
 export type ContentFile = components['schemas']['content-file']
@@ -21,6 +21,7 @@ export interface OfficialVersions {
   rails: VersionsDetails
   sinatra: VersionsDetails
   ruby: VersionsDetails
+  go: VersionsDetails
 }
 
 export interface VersionsDetails {
@@ -29,7 +30,6 @@ export interface VersionsDetails {
 }
 
 export interface MetadataStrategy {
-  officialVersions: OfficialVersions
   octokitClient: Octokit
   getMetadata(repository: Repository): Promise<Metadata>
 }

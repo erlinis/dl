@@ -1,8 +1,8 @@
+import { currentVersionStatus } from '../currentVersionStatus.js'
 import gemfileInterpreter from '../gemfileInterpreter.js'
 
 /**
  * @typedef {import("../types.js").MetadataStrategy} MetadataStrategy
- * @typedef {import('../types.js').OfficialVersions} OfficialVersions
  * @typedef {import('octokit').Octokit} OctokitClient
  * @typedef {import("../types.js").Repository} Repository
  * @typedef {import('../types.js').Technologies} Technologies
@@ -18,11 +18,9 @@ const RUBY_FRAMEWORKS = ['rails', 'sinatra']
 export class RubyMetadata {
   /**
    *
-   * @param {OfficialVersions} officialVersions
    * @param {OctokitClient} octokitClient
    */
-  constructor(officialVersions, octokitClient) {
-    this.officialVersions = officialVersions
+  constructor(octokitClient) {
     this.octokitClient = octokitClient
   }
 
@@ -61,7 +59,7 @@ export class RubyMetadata {
       framework = {
         name: frameworkName,
         version: frameworkMeta.version,
-        status: this.currentVersionStatus(frameworkMeta.version, frameworkName),
+        status: currentVersionStatus(frameworkMeta.version, frameworkName),
       }
     }
 
@@ -83,7 +81,7 @@ export class RubyMetadata {
     return {
       name: 'ruby',
       version: rubyVersion,
-      status: this.currentVersionStatus(rubyVersion, 'ruby'),
+      status: currentVersionStatus(rubyVersion, 'ruby'),
     }
   }
 
@@ -93,7 +91,8 @@ export class RubyMetadata {
    * @returns
    */
   getGemfileDotLock(repository) {
-    return this.octokitClient.rest.repos.getContent({
+    return this.octokitClient.rest.repos
+      .getContent({
         owner: repository.owner.login,
         repo: repository.name,
         path: 'Gemfile.lock',
@@ -139,21 +138,5 @@ export class RubyMetadata {
         console.log('[getRubyFromRubyVersionFile] Error: ', error)
         return ''
       })
-  }
-
-  /**
-   *
-   * @private
-   * @param {string} currentVersion
-   * @param {Technologies}  technology
-   * @returns
-   */
-  currentVersionStatus(currentVersion, technology) {
-    const officialVersion = this.officialVersions[technology]
-
-    if (currentVersion == officialVersion.latest) return 'latest'
-    if (officialVersion.stables.includes(currentVersion)) return 'stable'
-
-    return 'outdated'
   }
 }

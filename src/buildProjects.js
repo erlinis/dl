@@ -4,18 +4,16 @@ import { metadataStrategies } from './metada/metadataStrategyManager.js'
  * @typedef {import('./types.js').Repository} Repository
  * @typedef {import('./types.js').Metadata} Metadata
  * @typedef {import('./types.js').Project} Project
- * @typedef {import('./types.js').OfficialVersions} officialVersions
  * @typedef {import('octokit').Octokit} octokitClient
  */
 
 /**
  * @param {string} repositoryName
  * @param {string} repositoryOwner
- * @param {officialVersions} officialVersions
  * @param {octokitClient} octokitClient
  * @returns {Promise<Project[]>}
  */
-async function buildProjects(repositoryName, repositoryOwner, officialVersions, octokitClient) {
+async function buildProjects(repositoryName, repositoryOwner, octokitClient) {
   return await octokitClient.rest.repos
     .get({
       owner: repositoryOwner,
@@ -106,7 +104,7 @@ async function buildProjects(repositoryName, repositoryOwner, officialVersions, 
 
     if (metadataStrategyClass == undefined) return metadata
 
-    return new metadataStrategyClass(officialVersions, octokitClient).getMetadata(repository)
+    return new metadataStrategyClass(octokitClient).getMetadata(repository)
   }
 
   /**
