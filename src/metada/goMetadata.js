@@ -25,10 +25,10 @@ export class GoMetadata {
   async getMetadata(repository) {
     let metadata = { framework: {}, platform: {} }
 
-    const goDotModContent = await this.getGoDotMod(repository)
+    const dockerfileContent = await this.getDockerfile(repository)
     metadata = {
       framework: {},
-      platform: await this.getPlatformMetadata(goDotModContent),
+      platform: await this.getPlatformMetadata(dockerfileContent),
     }
 
     return metadata
@@ -36,11 +36,11 @@ export class GoMetadata {
 
   /**
    * @private
-   * @param {*} goDotModContent
+   * @param {*} dockerfileContent
    * @returns
    */
-  async getPlatformMetadata(goDotModContent) {
-    const goVersion = this.getGoVersion(goDotModContent)
+  async getPlatformMetadata(dockerfileContent) {
+    const goVersion = this.getGoVersion(dockerfileContent)
 
     return {
       name: 'go',
@@ -54,38 +54,40 @@ export class GoMetadata {
    * @param {Repository} repository
    * @returns
    */
-  getGoDotMod(repository) {
+  getDockerfile(repository) {
     return this.octokitClient.rest.repos
       .getContent({
         owner: repository.owner.login,
         repo: repository.name,
-        path: 'go.mod',
+        path: 'Dockerfile',
       })
-      .then(({ data: goDotMod }) => {
-        const goDotModContent = Buffer.from(goDotMod.content, goDotMod.encoding).toString('utf-8')
+      .then(({ data: dockerfile }) => {
+        const dockerfileContent = Buffer.from(dockerfile.content, dockerfile.encoding).toString(
+          'utf-8'
+        )
 
-        return goDotModContent
+        return dockerfileContent
       })
       .catch((error) => {
-        console.log('[goDotMod] Error: ', error)
+        console.log('[getDockerfile] Error: ', error)
         return {}
       })
   }
 
   /**
    * @private
-   * @param {*} goDotModContent
+   * @param {*} dockerfileContent
    */
-  getGoVersion(goDotModContent) {
+  getGoVersion(dockerfileContent) {
     let version
     let index = 0
     let line
-    let lines = goDotModContent.split('\n')
+    let lines = dockerfileContent.split('\n')
 
     while ((line = lines[index++]) !== undefined) {
-      const versionLine = line.match(/(go)\s(\d+\.*){1,4}/g)
+      const versionLine = line.match(/(FROM golang:)(\d+\.*){1,4}/g)
       if (versionLine != null) {
-        version = versionLine[0].split(' ')[1]
+        version = versionLine[0].split(':')[1]
         break
       }
     }
