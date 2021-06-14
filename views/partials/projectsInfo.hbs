@@ -10,11 +10,14 @@
         {{/ifNotEquals}}
       </div>
 
-      <div class='pr-box'>
+      <div class='pr-bot-box'>
         {{#if project.dependabotPRs}}
-          <a href='{{project.url}}/pulls' target='_blank'><span class='fs-sm fw-bold pr-bubble'>
-              {{project.dependabotPRs}}
-            </span></a>
+          <a href='{{project.url}}/pulls' target='_blank'>
+            <span class='pr-bot' title='Dependabot open pull requests'>
+              <span class='pr-robot'>🤖</span>
+              <span class='pr-bubble fs-sm fw-bold'>{{project.dependabotPRs}}</span>
+            </span>
+          </a>
         {{/if}}
       </div>
 

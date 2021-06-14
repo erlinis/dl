@@ -182,8 +182,14 @@ a {
   grid-template-columns: 2fr 3fr;
 }
 
-.pr-box {
+.pr-bot-box {
   position: relative;
+}
+
+.pr-robot {
+  font-size: 24px;
+  line-height: 1;
+  display: inline-block;
 }
 
 .pr-bubble {
@@ -197,12 +203,9 @@ a {
   text-align: center;
   padding: 1.5px 0;
   border-radius: 9px 8px 9px 0px;
+  transition: all ease-out 0.15s;
 }
 
-.pr-bubble::before {
-  content: '🤖';
-  position: absolute;
-  top: -2px;
-  left: -25px;
-  font-size: 24px;
+.pr-bot:hover .pr-bubble {
+  transform: scale(1.1) translate(2px, -1px);
 }
