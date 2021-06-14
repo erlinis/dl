@@ -34,6 +34,7 @@ async function buildProjects(repositoryName, repositoryOwner, octokitClient) {
             description: repository.description,
             defaultBranch: repository.default_branch,
             language: repository.language,
+            dependabotPRs: await dependabotPRsCount(repository),
             ...metadata,
           })
         }
@@ -50,12 +51,38 @@ async function buildProjects(repositoryName, repositoryOwner, octokitClient) {
           url: 'error',
           defaultBranch: '',
           language: '',
+          dependabotPRs: 0,
           framework: {},
           platform: {},
         },
       ]
     })
 
+  /**
+   *
+   * @param {Repository} repository
+   * @returns {Promise<number>}
+   */
+  function dependabotPRsCount(repository) {
+    return octokitClient.rest.pulls
+      .list({
+        owner: repository.owner.login,
+        repo: repository.name,
+        per_page: 20,
+        state: 'open',
+      })
+      .then(({ data: pullRequests }) => {
+        const dependabotPRs = pullRequests.filter((pullRequest) =>
+          pullRequest.user.login.includes('dependabot')
+        )
+
+        return dependabotPRs.length
+      })
+      .catch((err) => {
+        console.log('[dependabotPRs] Error: ', err)
+        return 0
+      })
+  }
   /**
    *
    * @param {Repository} repository
@@ -82,7 +109,7 @@ async function buildProjects(repositoryName, repositoryOwner, octokitClient) {
         owner: repository.owner.login,
         repo: repository.name,
       })
-      .then(async ({ data: languages }) => {
+      .then(({ data: languages }) => {
         return languages
       })
       .catch((err) => {

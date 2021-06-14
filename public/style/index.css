@@ -66,6 +66,10 @@ a {
   font-size: 0.7rem;
 }
 
+.fs-sm {
+  font-size: 0.75rem;
+}
+
 .fs-md {
   font-size: 0.9rem;
 }
@@ -163,7 +167,7 @@ a {
 .projects__titles,
 .projects__row {
   display: grid;
-  grid-template-columns: 5fr 2fr 1fr;
+  grid-template-columns: 5fr 2fr 2fr 1fr;
   padding: 0.5rem 0.5rem;
 }
 
@@ -176,4 +180,29 @@ a {
 
 .other-projects {
   grid-template-columns: 2fr 3fr;
+}
+
+.pr-box {
+  position: relative;
+}
+
+.pr-bubble {
+  position: absolute;
+  top: -2px;
+  color: var(--lightest-color);
+  background-color: var(--danger-color);
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  text-align: center;
+  padding: 1.5px 0;
+  border-radius: 9px 8px 9px 0px;
+}
+
+.pr-bubble::before {
+  content: '🤖';
+  position: absolute;
+  top: -2px;
+  left: -25px;
+  font-size: 24px;
 }

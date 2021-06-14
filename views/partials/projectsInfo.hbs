@@ -10,6 +10,14 @@
         {{/ifNotEquals}}
       </div>
 
+      <div class='pr-box'>
+        {{#if project.dependabotPRs}}
+          <a href='{{project.url}}/pulls' target='_blank'><span class='fs-sm fw-bold pr-bubble'>
+              {{project.dependabotPRs}}
+            </span></a>
+        {{/if}}
+      </div>
+
       {{#if project.framework}}
         <span class='version-{{project.framework.status}}'>
           {{project.framework.version}}

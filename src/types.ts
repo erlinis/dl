@@ -15,6 +15,7 @@ export interface Project extends Metadata {
   url: string
   defaultBranch: string
   language: string
+  dependabotPRs: number
 }
 
 export interface OfficialVersions {
