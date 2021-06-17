@@ -8,7 +8,7 @@ export const officialVersions = {
   },
   rails: {
     latest: '6.1.3.2',
-    stables: ['6.0.3.7', '5.2.6'],
+    stables: ['6.0.4', '5.2.6'],
   },
   sinatra: {
     latest: '2.1.0',
