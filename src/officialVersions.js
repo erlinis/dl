@@ -3,8 +3,8 @@
  */
 export const officialVersions = {
   ruby: {
-    latest: '3.0.1',
-    stables: ['2.7.3', '2.6.7'],
+    latest: '3.0.2',
+    stables: ['2.7.4', '2.6.8'],
   },
   rails: {
     latest: '6.1.4',
