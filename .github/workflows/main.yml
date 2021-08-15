@@ -5,12 +5,21 @@ on:
       - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12
+
+      - name: Deploy to erlinis-dl
+        uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           heroku_app_name: 'erlinis-dl'
+
+      - name: Deploy to erlinis-second-dl
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          heroku_app_name: 'erlinis-second-dl'
